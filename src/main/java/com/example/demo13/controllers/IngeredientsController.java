@@ -3,6 +3,14 @@ package com.example.demo13.controllers;
 
 import com.example.demo13.model.Ingredients;
 import com.example.demo13.services.IngredientServices;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +30,26 @@ public class IngeredientsController {
     }
 
     @GetMapping("/id")
+    @Operation(
+            summary = "Id ингредиента"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "ID были найдены",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            array = @ArraySchema(schema = @Schema(implementation = Ingredients.class))
+                                    )
+                            }
+
+
+
+                    )
+            }
+    )
     public Ingredients getIngredient(@PathVariable int id) {
         return ingredientServices.getIngredient(id);
     }
