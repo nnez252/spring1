@@ -29,7 +29,7 @@ public class IngeredientsController {
         ingredientServices.addIngredient(ingredient);
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     @Operation(
             summary = "Id ингредиента"
     )
