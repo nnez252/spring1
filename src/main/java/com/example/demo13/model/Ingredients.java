@@ -9,5 +9,5 @@ import lombok.Data;
      private String name;
      private int volume;
      private String unitOfMeasurement;
-     private int id;
+
 }

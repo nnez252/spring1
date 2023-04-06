@@ -23,11 +23,11 @@ import java.util.TreeMap;
     }
 
     private static Map<Integer, Ingredients> ingredients = new LinkedHashMap<>();
-
+    private static int id = 0;
 
     @Override
       public void addIngredient(Ingredients ingredient) {
-        ingredients.put(ingredient.getId(), ingredient);
+        ingredients.put(id++, ingredient);
     }
 
      @Override
@@ -42,7 +42,6 @@ import java.util.TreeMap;
             throw new ClassNotFoundException("айди рецета не найдено" + id);
         }
         ingredients1.setName("dsad");
-       ingredients1.setId(2);
        ingredients1.setVolume(32);
        ingredients1.setUnitOfMeasurement("см");
         return ingredients1;
