@@ -1,8 +1,14 @@
 package com.example.demo13.services;
 
-public interface FilesServices {
+import java.io.File;
+
+ public interface FilesServices {
 
     boolean saveToFile(String json);
 
-    String readFromFile();
-}
+     String readFromFile();
+
+     File getDataFile();
+
+     boolean cleanDataFile();
+ }

@@ -3,16 +3,16 @@ package com.example.demo13.services;
 
 import com.example.demo13.model.Ingredients;
 
-public interface IngredientServices {
+ public interface IngredientServices {
 
 
-     void addIngredient(Ingredients ingredient);
+      void addIngredient(Ingredients ingredient);
 
-     Ingredients getIngredient(int id);
+      Ingredients getIngredient(int id);
 
 
-     Ingredients editIngredient(int id, Ingredients ingredient) throws ClassNotFoundException;
+      Ingredients editIngredient(int id, Ingredients ingredient) throws ClassNotFoundException;
 
-     boolean deleteIngredient(int id);
+      boolean deleteIngredient(int id);
 
  }

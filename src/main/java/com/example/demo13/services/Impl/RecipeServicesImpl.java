@@ -14,65 +14,65 @@ import javax.annotation.PostConstruct;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
- @Service
- public class RecipeServicesImpl implements RecipeServices {
+  @Service
+  public class RecipeServicesImpl implements RecipeServices {
 
-     private static Map<Integer, Recipe> recipes = new LinkedHashMap<>();
-     private static int id = 0;
-     final private FilesServices filesServices;
+      private static Map<Integer, Recipe> recipes = new LinkedHashMap<>();
+      private static int id = 0;
+      final private FilesServices filesServices;
 
-     public RecipeServicesImpl(FilesServices filesServices) {
+      public RecipeServicesImpl(FilesServices filesServices) {
          this.filesServices = filesServices;
      }
 
 
-     @Override
-     public void addRecipe(Recipe recipe) {
+      @Override
+      public void addRecipe(Recipe recipe) {
         recipes.put(id++, recipe);
     }
 
-     @Override
-     public Recipe getRecipe(int id) {
+      @Override
+      public Recipe getRecipe(int id) {
         return recipes.get(id);
     }
-     @PostConstruct
-     private void init() {
+      @PostConstruct
+      private void init() {
          readFromFile();
      }
 
-@Override
-     public Recipe editRecipe(int id, Recipe recipe) throws ClassNotFoundException {
-         Recipe recipe1 = recipes.get(id);
-         saveToFile();
-         if (recipe1 == null) {
-             throw new ClassNotFoundException("айди рецета не найдено" + id);
-         }
-         recipe1.setName("dsad");
-         recipe1.setTimeOfCooking(321);
-         recipes.put(id, recipe1);
-    return recipe1;
-}
-
-     @Override
-     public boolean deleteRecipe(int id) {
-         recipes.remove(id);
-         return false;
-     }
-     private void saveToFile() {
-         try {
-             String json = new ObjectMapper().writeValueAsString(recipes);
-             filesServices.saveToFile(json);
-         } catch (JsonProcessingException e) {
-             throw new RuntimeException(e);
-         }
-     }
-     private void readFromFile() {
-         String json = filesServices.readFromFile();
-         try {
-             recipes = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Recipe>>() {
-             });
-         } catch (JsonProcessingException e) {
-             throw new RuntimeException(e);
-         }
-     }
+ @Override
+      public Recipe editRecipe(int id, Recipe recipe) throws ClassNotFoundException {
+          Recipe recipe1 = recipes.get(id);
+          saveToFile();
+          if (recipe1 == null) {
+              throw new ClassNotFoundException("айди рецета не найдено" + id);
+          }
+          recipe1.setName("dsad");
+          recipe1.setTimeOfCooking(321);
+          recipes.put(id, recipe1);
+     return recipe1;
  }
+
+      @Override
+      public boolean deleteRecipe(int id) {
+          recipes.remove(id);
+          return false;
+      }
+        private void saveToFile() {
+          try {
+              String json = new ObjectMapper().writeValueAsString(recipes);
+              filesServices.saveToFile(json);
+          } catch (JsonProcessingException e) {
+              throw new RuntimeException(e);
+          }
+     }
+      private void readFromFile() {
+          String json = filesServices.readFromFile();
+          try {
+              recipes = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Recipe>>() {
+              });
+          } catch (JsonProcessingException e) {
+              throw new RuntimeException(e);
+          }
+      }
+  }
