@@ -15,4 +15,5 @@ import com.example.demo13.model.Recipe;
 
       boolean deleteRecipe(int id);
 
+     Object getAllRecipes();
  }

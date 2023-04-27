@@ -1,12 +1,16 @@
 package com.example.demo13.controllers;
 
 
+import com.example.demo13.model.Ingredients;
 import com.example.demo13.model.Recipe;
 import com.example.demo13.services.RecipeServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
- @RestController
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController
  @RequestMapping("/recipe")
  public class RecipeController {
      private RecipeServices recipeServices;
@@ -41,6 +45,10 @@ import org.springframework.web.bind.annotation.*;
      }
          return ResponseEntity.notFound().build();
  }
+    @GetMapping("/all")
+    public List<Ingredients> getAllRecipes() {
+        return new ArrayList<>((Integer) recipeServices.getAllRecipes());
+    }
      }
 
 

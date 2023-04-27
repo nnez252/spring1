@@ -15,4 +15,5 @@ import com.example.demo13.model.Ingredients;
 
       boolean deleteIngredient(int id);
 
+     Object getAllIngredients();
  }
