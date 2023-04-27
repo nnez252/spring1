@@ -28,6 +28,7 @@ import java.util.TreeMap;
      @Override
        public void addIngredient(Ingredients ingredient) {
         ingredients.put(id++, ingredient);
+         saveToFile();
     }
 
       @Override
@@ -37,20 +38,27 @@ import java.util.TreeMap;
      @Override
      public Ingredients editIngredient(int id, Ingredients ingredient) throws ClassNotFoundException {
          Ingredients ingredients1 = ingredients.get(id);
-         saveToFile();
          if (ingredients1 == null) {
-             throw new ClassNotFoundException("айди рецета не найдено" + id);
+             throw new ClassNotFoundException("Айди ингредиента не найдено: " + id);
          }
-         ingredients1.setName("dsad");
-        ingredients1.setVolume(32);
-        ingredients1.setUnitOfMeasurement("см");
+         ingredients1.setName(ingredient.getName());
+         ingredients1.setVolume(ingredient.getVolume());
+         ingredients1.setUnitOfMeasurement(ingredient.getUnitOfMeasurement());
+         saveToFile();
          return ingredients1;
      }
      @Override
      public boolean deleteIngredient(int id) {
          ingredients.remove(id);
-         return false;
+         saveToFile();
+         return true;
      }
+
+     @Override
+     public Object getAllIngredients() {
+         return null;
+     }
+
      @PostConstruct
      private void init() {
          readFromFile();

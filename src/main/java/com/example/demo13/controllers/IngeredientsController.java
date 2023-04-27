@@ -14,7 +14,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
- @RestController
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController
  @RequestMapping("/ingredients")
  public class IngeredientsController {
 
@@ -68,4 +71,8 @@ import org.springframework.web.bind.annotation.*;
          }
          return ResponseEntity.notFound().build();
      }
- }
+     @GetMapping("/all")
+     public List<Ingredients> getAllIngredients() {
+         return new ArrayList<>((Integer) ingredientServices.getAllIngredients());
+     }
+    }

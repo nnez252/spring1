@@ -29,6 +29,7 @@ import java.util.Map;
       @Override
       public void addRecipe(Recipe recipe) {
         recipes.put(id++, recipe);
+          saveToFile();
     }
 
       @Override
@@ -43,22 +44,29 @@ import java.util.Map;
  @Override
       public Recipe editRecipe(int id, Recipe recipe) throws ClassNotFoundException {
           Recipe recipe1 = recipes.get(id);
-          saveToFile();
           if (recipe1 == null) {
               throw new ClassNotFoundException("айди рецета не найдено" + id);
           }
-          recipe1.setName("dsad");
-          recipe1.setTimeOfCooking(321);
+          recipe1.setName(recipe.getName());
+          recipe1.setTimeOfCooking(recipe.getTimeOfCooking());
           recipes.put(id, recipe1);
+     saveToFile();
      return recipe1;
  }
 
       @Override
       public boolean deleteRecipe(int id) {
           recipes.remove(id);
-          return false;
+          saveToFile();
+          return true;
       }
-        private void saveToFile() {
+
+      @Override
+      public Object getAllRecipes() {
+          return null;
+      }
+
+      private void saveToFile() {
           try {
               String json = new ObjectMapper().writeValueAsString(recipes);
               filesServices.saveToFile(json);

@@ -11,4 +11,20 @@ import java.io.File;
      File getDataFile();
 
      boolean cleanDataFile();
+
+  boolean saveIngredientsToFile(String json);
+
+  boolean saveRecipesToFile(String json);
+
+  String readIngredientsFromFile();
+
+  String readRecipesFromFile();
+
+  File getIngredientsFile();
+
+  File getRecipesFile();
+
+  boolean cleanIngredientsFile();
+
+  boolean cleanRecipesFile();
  }
