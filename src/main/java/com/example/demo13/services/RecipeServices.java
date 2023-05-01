@@ -3,7 +3,9 @@ package com.example.demo13.services;
 
 import com.example.demo13.model.Recipe;
 
- public interface RecipeServices {
+import java.util.List;
+
+public interface RecipeServices {
 
 
       void addRecipe(Recipe recipe);
@@ -16,4 +18,5 @@ import com.example.demo13.model.Recipe;
       boolean deleteRecipe(int id);
 
      Object getAllRecipes();
+     List<Recipe> getAllRecipesDownload();
  }

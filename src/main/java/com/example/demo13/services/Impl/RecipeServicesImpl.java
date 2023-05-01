@@ -11,7 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
   @Service
@@ -82,5 +84,9 @@ import java.util.Map;
           } catch (JsonProcessingException e) {
               throw new RuntimeException(e);
           }
+      }
+      @Override
+      public List<Recipe> getAllRecipesDownload() {
+          return new ArrayList<>(recipes.values());
       }
   }

@@ -3,10 +3,14 @@ package com.example.demo13.controllers;
 
 import com.example.demo13.model.Ingredients;
 import com.example.demo13.model.Recipe;
+import com.example.demo13.services.IngredientServices;
 import com.example.demo13.services.RecipeServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +18,14 @@ import java.util.List;
  @RequestMapping("/recipe")
  public class RecipeController {
      private RecipeServices recipeServices;
+    private IngredientServices ingredientServices;
 
-     public RecipeController(RecipeServices recipeServices) {
+    public RecipeController(RecipeServices recipeServices, IngredientServices ingredientServices) {
         this.recipeServices = recipeServices;
+        this.ingredientServices = ingredientServices;
     }
+
+
 
      @PostMapping
      public void addRecipe(@RequestBody Recipe recipe) {
@@ -49,6 +57,29 @@ import java.util.List;
     public List<Ingredients> getAllRecipes() {
         return new ArrayList<>((Integer) recipeServices.getAllRecipes());
     }
-     }
+
+    @GetMapping("/download")
+    public void downloadRecipes(HttpServletResponse response) throws IOException {
+        response.setContentType("text/plain");
+        response.setHeader("Content-Disposition", "attachment;filename=recipes.txt");
+
+        List<Recipe> recipes = recipeServices.getAllRecipesDownload();
+        PrintWriter writer = response.getWriter();
+        for (Recipe recipe : recipes) {
+            writer.println(recipe.getName() + "\n");
+            writer.println("Время приготовления: " + recipe.getTimeOfCooking() + ".\n");
+
+            writer.println("Ингредиенты:\n");
+            for (Ingredients ingredient : recipe.getIngredients()) {
+                writer.println(ingredient.getName() + " - " + ingredient.getUnitOfMeasurement() + ".");
+            }
+            writer.println();
+            writer.println("Инструкция приготовления:\n" + recipe.getSteps() + "\n\n");
+        }
+        writer.close();
+    }
+}
+
+
 
 
